@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	defaultFileName string = "concurrency"
+	defaultFileName string = "__concurrency__"
 	separator       string = ";"
 )
 
