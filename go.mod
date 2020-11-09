@@ -1,3 +1,3 @@
-module github.com/Leapforce-nl/go_concurrency
+module github.com/leapforce-libraries/go_concurrency
 
 go 1.13
