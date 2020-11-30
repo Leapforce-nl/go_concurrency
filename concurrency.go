@@ -4,6 +4,8 @@ import (
 	"io/ioutil"
 	"os"
 	"strings"
+
+	errortools "github.com/leapforce-libraries/go_errortools"
 )
 
 const (
@@ -24,10 +26,10 @@ func NewConcurrency(fileName *string) *Concurrency {
 	return &Concurrency{_fileName}
 }
 
-func (c *Concurrency) TryStartProcess(processName string) (bool, error) {
-	running, err := c.getRunning()
-	if err != nil {
-		return false, err
+func (c *Concurrency) TryStartProcess(processName string) (bool, *errortools.Error) {
+	running, e := c.getRunning()
+	if e != nil {
+		return false, e
 	}
 
 	_running := *running
@@ -42,19 +44,19 @@ func (c *Concurrency) TryStartProcess(processName string) (bool, error) {
 
 	if !isRunning {
 		_running = append(_running, processName)
-		err := c.setRunning(_running)
-		if err != nil {
-			return false, err
+		e := c.setRunning(_running)
+		if e != nil {
+			return false, e
 		}
 	}
 
 	return !isRunning, nil
 }
 
-func (c *Concurrency) StopProcess(processName string) error {
-	running, err := c.getRunning()
-	if err != nil {
-		return err
+func (c *Concurrency) StopProcess(processName string) *errortools.Error {
+	running, e := c.getRunning()
+	if e != nil {
+		return e
 	}
 
 	_running := []string{}
@@ -64,21 +66,26 @@ func (c *Concurrency) StopProcess(processName string) error {
 		}
 	}
 
-	err = c.setRunning(_running)
-	if err != nil {
-		return err
+	e = c.setRunning(_running)
+	if e != nil {
+		return e
 	}
 
 	return nil
 }
 
-func (c *Concurrency) getRunning() (*[]string, error) {
+func (c *Concurrency) getRunning() (*[]string, *errortools.Error) {
 	running := []string{}
 
-	if fileExists(c.fileName) {
+	fileExists, e := fileExists(c.fileName)
+	if e != nil {
+		return nil, e
+	}
+
+	if fileExists {
 		b, err := ioutil.ReadFile(c.fileName)
 		if err != nil {
-			return nil, err
+			return nil, errortools.ErrorMessage(err)
 		}
 
 		running = strings.Split(string(b), separator)
@@ -87,16 +94,19 @@ func (c *Concurrency) getRunning() (*[]string, error) {
 	return &running, nil
 }
 
-func (c *Concurrency) setRunning(running []string) error {
+func (c *Concurrency) setRunning(running []string) *errortools.Error {
 	b := []byte(strings.Join(running, separator))
 	err := ioutil.WriteFile(c.fileName, b, 0644)
-	return err
+	return errortools.ErrorMessage(err)
 }
 
-func fileExists(filename string) bool {
+func fileExists(filename string) (bool, *errortools.Error) {
 	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
+	if err != nil {
+		return false, errortools.ErrorMessage(err)
 	}
-	return !info.IsDir()
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return !info.IsDir(), nil
 }
