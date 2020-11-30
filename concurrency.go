@@ -102,9 +102,6 @@ func (c *Concurrency) setRunning(running []string) *errortools.Error {
 
 func fileExists(filename string) (bool, *errortools.Error) {
 	info, err := os.Stat(filename)
-	if err != nil {
-		return false, errortools.ErrorMessage(err)
-	}
 	if os.IsNotExist(err) {
 		return false, nil
 	}
