@@ -97,7 +97,10 @@ func (c *Concurrency) getRunning() (*[]string, *errortools.Error) {
 func (c *Concurrency) setRunning(running []string) *errortools.Error {
 	b := []byte(strings.Join(running, separator))
 	err := ioutil.WriteFile(c.fileName, b, 0644)
-	return errortools.ErrorMessage(err)
+	if err != nil {
+		return errortools.ErrorMessage(err)
+	}
+	return nil
 }
 
 func fileExists(filename string) (bool, *errortools.Error) {
