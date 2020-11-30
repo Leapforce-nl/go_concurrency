@@ -82,7 +82,7 @@ func (c *Concurrency) getRunning() (*[]string, *errortools.Error) {
 		return nil, e
 	}
 
-	if !fileExists {
+	if fileExists {
 		b, err := ioutil.ReadFile(c.fileName)
 		if err != nil {
 			return nil, errortools.ErrorMessage(err)
