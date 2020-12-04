@@ -72,6 +72,8 @@ github.com/labstack/echo/v4 v4.1.11/go.mod h1:i541M3Fj6f76NZtHSj7TXnyM8n2gaodfvf
 github.com/labstack/gommon v0.3.0/go.mod h1:MULnywXg0yavhxWKc+lOruYdAhDwPK9wf0OL7NoOu+k=
 github.com/leapforce-libraries/go_errortools v0.0.0-20201127124128-25ac1c78a30c h1:G8wTXrP8MHBcmqEKniPUPmWhThkEpAZ61OD1CKtZQ74=
 github.com/leapforce-libraries/go_errortools v0.0.0-20201127124128-25ac1c78a30c/go.mod h1:SmFPi+pPS5oWI/PfOv25kuIOBEMgr52dezH+dsmRCfQ=
+github.com/leapforce-libraries/go_errortools v0.0.0-20201204210737-d975f1003e2b h1:VBo8fpvnWiqeEfBrtYkKfAU6ZZTicX7nmTwT/BKsNQA=
+github.com/leapforce-libraries/go_errortools v0.0.0-20201204210737-d975f1003e2b/go.mod h1:SmFPi+pPS5oWI/PfOv25kuIOBEMgr52dezH+dsmRCfQ=
 github.com/magiconair/properties v1.8.0/go.mod h1:PppfXfuXeibc/6YijjN8zIbojt8czPbwD3XqdrwzmxQ=
 github.com/mattn/go-colorable v0.1.2/go.mod h1:U0ppj6V5qS13XJ6of8GYAs25YV2eR4EVcfRqFIhoBtE=
 github.com/mattn/go-isatty v0.0.7/go.mod h1:Iq45c/XA43vh69/j3iqttzPXn0bhXyGjM0Hdxcsrc5s=
